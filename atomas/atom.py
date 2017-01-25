@@ -139,6 +139,7 @@ class AtomBase(Widget):
     waiting = BooleanProperty(True)
     acenter_x = NumericProperty()
     acenter_y = NumericProperty()
+    rpercent = NumericProperty(1.0)
     color  = ObjectProperty(None)
 
     def __init__(self, board, **kwargs):

@@ -18,8 +18,8 @@
 
 
 <AtomBase>:
-    acenter_x: (self.board.center_x + self.board.cradius*COS(self.angle)) if self.board else 100
-    acenter_y: (self.board.center_y + self.board.cradius*SIN(self.angle)) if self.board else 100
+    acenter_x: (self.board.center_x + self.board.cradius*self.rpercent*COS(self.angle)) if self.board else 100
+    acenter_y: (self.board.center_y + self.board.cradius*self.rpercent*SIN(self.angle)) if self.board else 100
     center: (self.board.center if self.board else (100,100)) if self.waiting else (self.acenter_x, self.acenter_y)
     size: (self.board.adiam, self.board.adiam) if self.board else (30, 30)
     canvas:
