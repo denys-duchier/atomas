@@ -1,0 +1,78 @@
+#:import PI math.pi
+#:import COS math.cos
+#:import SIN math.sin
+#:import RGBA kivy.utils.get_color_from_hex
+
+<Board>:
+    radius: (min(self.width, self.height) - 2*self.margin) / 2.0
+    adiam: (2*PI*(self.radius - self.amargin)*self.ascale) / 18.0
+    cradius: self.radius - self.amargin - self.adiam/2.0
+    canvas:
+        Color:
+            rgba: RGBA("#551f2c")
+        Rectangle:
+            pos: root.pos
+            size: root.size
+
+
+<AtomBase>:
+    acenter_x: (self.board.center_x + self.board.cradius*COS(self.angle)) if self.board else 100
+    acenter_y: (self.board.center_y + self.board.cradius*SIN(self.angle)) if self.board else 100
+    center: (self.board.center if self.board else (100,100)) if self.waiting else (self.acenter_x, self.acenter_y)
+    size: (self.board.adiam, self.board.adiam) if self.board else (30, 30)
+    canvas:
+        PushMatrix:
+        Color:
+            rgba: root.color or (1,1,1,1)
+        Ellipse:
+            pos: root.pos
+            size: root.size
+        PopMatrix:
+
+
+<AtomText>:
+    font_size: 0.3*root.board.adiam if root.board else 20
+    text_color: (0,0,0,1)
+    Label:
+        id: symbol
+        text: root.text
+        center: root.center
+        color: root.text_color
+        font_size: root.font_size
+
+
+<Atom>:
+    text: self.symbol
+    Label:
+        text: str(root.n)
+        center_x: root.ids.symbol.center_x if root.ids.symbol else 100
+        center_y: (root.ids.symbol.center_y - root.ids.symbol.font_size) if root.ids.symbol else 100
+        color: (0,0,0,1)
+        font_size: (root.ids.symbol.font_size if root.ids.symbol else 20) * 0.5
+
+
+<AtomPlus>:
+    text: "+"
+    color: (1,0,0,1)
+    font_size: 0.4*root.board.adiam if root.board else 25
+
+
+<AtomMinus>:
+    text: "-"
+    color: (0,0,1,1)
+
+
+<Neutrino>:
+    color: (1,1,1,1)
+
+
+<AtomDarkPlus>:
+    text: "+"
+    color: (0,0,0,1)
+    text_color: (1,1,1,1)
+
+
+BoxLayout:
+    orientation: "vertical"
+    Board:
+        id: board
