@@ -134,7 +134,7 @@ ATOMS = (
 
 
 class AtomBase(Widget):
-    board = ObjectProperty(None)
+    board = ObjectProperty(None, rebind=True)
     angle = NumericProperty()
     waiting = BooleanProperty(True)
     acenter_x = NumericProperty()

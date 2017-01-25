@@ -8,11 +8,13 @@
     adiam: (2*PI*(self.radius - self.amargin)*self.ascale) / 18.0
     cradius: self.radius - self.amargin - self.adiam/2.0
     canvas:
+        PushMatrix:
         Color:
             rgba: RGBA("#551f2c")
         Rectangle:
             pos: root.pos
             size: root.size
+        PopMatrix:
 
 
 <AtomBase>:
